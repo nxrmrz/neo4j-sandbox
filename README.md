@@ -154,7 +154,12 @@ ORDER BY c.owner_name
 3b. Return account owner name(s), account type(s), the fund or stock they own and total the value for the last day in the daily trading data. Do not hard code the last day in the query.
 
 ```
-TODO
+MATCH (c:Customer)-[:HAS]->(ac:Account)-[p:PURCHASED]->(h)-[*0..1]->()-[:DAILY_CLOSE]->(d)
+WITH c.owner_name as customer, ac.account_type as account, TOFLOAT(p.quantity) as numBought, h.ticker as ticker, d order by d.date DESC
+WITH customer, account, numBought, ticker, TOFLOAT(collect(d)[0].close) as lastDayClose
+WITH customer, account, numBought, ticker, SUM(lastDayClose) as totalClose
+RETURN customer, account, ticker, numBought * totalClose as value
+ORDER BY customer
 ```
 
 3c. Any other interesting queries or observations about the model you built and the types of queries that it entails.
