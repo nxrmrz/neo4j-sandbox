@@ -128,8 +128,8 @@ The formula in pseudocode would be:
 ```
 - Filter our graph to only have Ed Chowder's mutual holdings and their Daily Close values on 2018-05-15
 - For each holding, get the percentage that holding represents in the fund's assets, divide that by 100, and multiply this by the fund's total asset amount
-The result above is multiplied to the holding's close value
-Then the result above is summed up for all holdings in each fund.
+- The result above is multiplied to the holding's close value
+- Then the result above is summed up for all holdings in each fund.
 ```
 
 In cypher query, the above is:
