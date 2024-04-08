@@ -4,7 +4,15 @@ This is my attempt to load and query financial data into Neo4J, and answer quest
 
 I used a Neo4J sandbox instance: `neo4j+s://97cceae5d9a9d470b3f1a914a5a3d9c0.bolt.neo4jsandbox.com:443` in the Browser for this exercise.
 
-#### Loading data
+We load data and build relationships between them following the graph model below, representing customers owning investment accounts that are invested into funds and stocks (i.e. holdings). The daily performance of those holdings are also represented.
+
+![Mutual Fund Graph Model](./static/MutualFundGraphModel.png)
+
+Following successful loading and building of the graph model, an example query result fulfilling some of the graph model details above is below.
+
+![Example Real Data](./static/ExampleRealData.png)
+
+#### Cypher Queries for loading data
 
 ```
 //load customers 
@@ -43,7 +51,7 @@ CREATE (dc:DailyClose)
 SET dc += row
 ```
 
-#### Building relationships between nodes
+#### Cypher queries for building relationships between nodes
 
 ```
 //build relationship between customer and account
@@ -93,6 +101,8 @@ MERGE (f)-[:DAILY_CLOSE]->(d)
 ```
 
 # Section 2
+
+#### Querying the data
 
 2a. Find all Accounts that own MSFT stock directly through an individual account.
 ```
