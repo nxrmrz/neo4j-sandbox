@@ -38,7 +38,6 @@ CREATE (st:StockTicker)
 SET st += row
 
 //load daily close
-USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/daily_close.csv' AS row
 CREATE (dc:DailyClose)
 SET dc += row
@@ -65,7 +64,7 @@ r.quantity = ap.number_of_shares
 
 //build relationship between account and fund
 MATCH (ac:Account)
-MATCH (ap: AccountPurchase)
+MATCH (ap:AccountPurchase)
 MATCH (f:Fund)
 WHERE ac.account_id = ap.account_id AND ap.ticker = f.ticker
 MERGE (ac)-[r:PURCHASED]->(f)
@@ -117,10 +116,10 @@ ORDER BY numFundsOwning DESC
 
 The formula in pseudocode would be:
 ```
-- Filter our graph to only have Ed Chowder's holdings and their Daily Close values on 2018-05-15
+- Filter our graph to only have Ed Chowder's mutual holdings and their Daily Close values on 2018-05-15
 - For each holding, get the percentage that holding represents in the fund's assets, divide that by 100, and multiply this by the fund's total asset amount
 The result above is multiplied to the holding's close value
-Then the result above is summed up for all holdings
+Then the result above is summed up for all holdings in each fund.
 ```
 
 In cypher query, the above is:
@@ -156,3 +155,6 @@ I noticed a few things:
 - Fund holdings percentages don't sum up to 100 - possible that they hold not just a bunch of stocks, but assets somewhere else not indicated in `StockTicker` table?
 - The model we built has `DailyClose` nodes for each stock/fund (i.e. each holding). This could result to performance or memory problems if the number of holdings balloons, as each holding would have at least 30 nodes. Say it balloons to 1000. We'd then need to create `1000 * 30 = 30,000` new nodes.
     - A potential fix is to create, per holding, a reduced number of nodes indicating a time period (i.e. a single node for the month? A single node for the quarter?) and each node would have _arrays_ of daily values: highs, lows, closes, volumes, etc. This allows us to _index_ to retrieve a specific daily value or property, as opposed to doing node traversal/search on a large number of items.
+
+A clarification I need to make:
+- I need to clarify the formula for calculating total fund performance. I have indicated my reasoning in Section 2d, but it doesn't fit the answer in the pdf.
