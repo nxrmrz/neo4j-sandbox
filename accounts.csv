@@ -1,9 +1,0 @@
-customer_id,account_id,owner_name,address1,address2,city,state,zip,account_type,channel
-AJ90301,123456,Alex Jones,123 Main Street,,Boston, MA,02432,401k,Corporate
-AJ90301,123457,Alex Jones,123 Main Street,,Boston, MA,02432,Individual,Brokerage
-AJ90301,123458,Alex Jones,123 Main Street,,Boston, MA,02432,529 Plan,Brokerage
-EC2123,923456,,,,,,,401k,Corporate
-EC2123,923457,,,,,,,Individual,Brokerage
-EC2123,923458,,,,,,,529 Plan,Brokerage
-PRA983,7009001,,,,,,,Individual,Brokerage
-NCC1701,7009991,,,,,,,Individual,Brokerage
