@@ -2,7 +2,7 @@
 
 This is my attempt to load and query financial data into Neo4J, and answer questions about the graph that I built on the data.
 
-This financial data represents [customers](customers.csv), their [investment accounts](accounts.csv), [purchases made](account_purchases.csv) by those accounts in terms of [mutual funds](funds.csv) and [stocks](stock_ticker.csv), and the [daily values of individual stocks](daily_close.csv).
+This financial data represents [customers](data/customers.csv), their [investment accounts](data/accounts.csv), [purchases made](data/account_purchases.csv) by those accounts in terms of [mutual funds](data/funds.csv) and [stocks](data/stock_ticker.csv), and the [daily values of individual stocks](data/daily_close.csv).
 
 We load data and build relationships between them following the graph model below drawn using the [arrows web-app](https://arrows.app) in Section 1 of this README. We then answer questions about this graph model in Section 2 onwards.
 
@@ -20,37 +20,37 @@ Following successful loading and building of the graph model, an example query r
 
 ```
 //load customers 
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/customers.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/customers.csv' AS row
 CREATE (c:Customer)
 SET c += row
 
 //load accounts
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/accounts.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/accounts.csv' AS row
 CREATE (ac:Account)
 SET ac += row
 
 //load accounts purchases
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/account_purchases.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/account_purchases.csv' AS row
 CREATE (ap:AccountPurchase)
 SET ap += row
 
 //load funds
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/funds.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/funds.csv' AS row
 CREATE (f:Fund)
 SET f += row
 
 //load fund holdings
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/fund_holdings.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/fund_holdings.csv' AS row
 CREATE (fh:FundHolding)
 SET fh += row
 
 //load stock tickers
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/stock_ticker.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/stock_ticker.csv' AS row
 CREATE (st:StockTicker)
 SET st += row
 
 //load daily close
-LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/daily_close.csv' AS row
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/nxrmrz/neo4j-sandbox/main/data/daily_close.csv' AS row
 CREATE (dc:DailyClose)
 SET dc += row
 ```
