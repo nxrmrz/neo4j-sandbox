@@ -169,7 +169,8 @@ ORDER BY customer
 3c. Any other interesting queries or observations about the model you built and the types of queries that it entails.
 
 I noticed a few things:
-- The input tables are quite denormalised, allowing you to inspect high level account performance, and low level/granular stock performance to the day
+- The input tables are quite denormalised, allowing you to inspect high level account performance, and low level/granular stock performance to the day.
+- A graph model is suitable for representing this data, and querying the graph model to get granular details such as daily stock performance is quite easy and intuitive, involving graph traversal. The alternative tabular representation in a relational database would require writing long SQL subqueries, as opposed to a few lines of cypher query.
 - Some customer accounts dont have names
 - Fund holdings percentages don't sum up to 100 - possible that they hold not just a bunch of stocks, but assets somewhere else not indicated in `StockTicker` table?
 - The model we built has `DailyClose` nodes for each stock/fund (i.e. each holding). This could result to performance or memory problems if the number of holdings balloons, as each holding would have at least 30 nodes. Say it balloons to 1000. We'd then need to create `1000 * 30 = 30,000` new nodes.
