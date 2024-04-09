@@ -1,4 +1,4 @@
-# Section 1
+# Introduction
 
 This is my attempt to load and query financial data into Neo4J, and answer questions about the graph that I built on the data.
 
@@ -13,6 +13,8 @@ I used a Neo4J sandbox instance: `neo4j+s://97cceae5d9a9d470b3f1a914a5a3d9c0.bol
 Following successful loading and building of the graph model, an example query result fulfilling some of the graph model details above is below.
 
 ![Example Real Data](./static/ExampleRealData.png)
+
+# Section 1
 
 #### Cypher Queries for loading data
 
