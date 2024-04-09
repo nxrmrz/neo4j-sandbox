@@ -2,9 +2,11 @@
 
 This is my attempt to load and query financial data into Neo4J, and answer questions about the graph that I built on the data.
 
-I used a Neo4J sandbox instance: `neo4j+s://97cceae5d9a9d470b3f1a914a5a3d9c0.bolt.neo4jsandbox.com:443` in the Browser for this exercise.
+This financial data represents [customers](customers.csv), their [investment accounts](accounts.csv), [purchases made](account_purchases.csv) by those accounts in terms of [mutual funds](funds.csv) and [stocks](stock_ticker.csv), and the [daily values of individual stocks](daily_close.csv).
 
-We load data and build relationships between them following the graph model below, representing customers owning investment accounts that are invested into funds and stocks (i.e. holdings). The daily performance of those holdings are also represented.
+We load data and build relationships between them following the graph model below drawn using the [arrows web-app](https://arrows.app) in Section 1 of this README. We then answer questions about this graph model in Section 2 onwards.
+
+I used a Neo4J sandbox instance: `neo4j+s://97cceae5d9a9d470b3f1a914a5a3d9c0.bolt.neo4jsandbox.com:443` in the Browser for this exercise.
 
 ![Mutual Fund Graph Model](./static/MutualFundGraphModel.png)
 
