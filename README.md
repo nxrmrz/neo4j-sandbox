@@ -168,13 +168,21 @@ ORDER BY customer
 
 3c. Any other interesting queries or observations about the model you built and the types of queries that it entails.
 
-I noticed a few things:
+I noticed a few things, which I group under concept headers:
+
+**Data Representation**
 - The input tables are quite denormalised, allowing you to inspect high level account performance, and low level/granular stock performance to the day.
-- A graph model is suitable for representing this data, and querying the graph model to get granular details such as daily stock performance is quite easy and intuitive, involving graph traversal. The alternative tabular representation in a relational database would require writing long SQL subqueries, as opposed to a few lines of cypher query.
+- A graph model is suitable for representing this data, as the data is inherently hierarchical. A customer is the root node in the hierarchy, and information about the customer's financial activities are leaf nodes below the root node. All the more reason for representing the data as a graph! 
+- Querying the graph model to get either high level details, like customer account information, or granular details such as daily stock performance is quite easy and intuitive, involving graph traversal. Querying the alternative tabular representation in a relational database would be tedious, and less flexible.
+    - For example, 3b above would involve ~6 joins if represented in a relational format, just to get daily close information
+    - 3b above can involve writing CTE subqueries to get 'last day' information
+    - If we wanted to ask another question about the data, it can involve re-writing the joins or subqueries accordingly
+
+**Details about the graph model and its quality**
 - Some customer accounts dont have names
-- Fund holdings percentages don't sum up to 100 - possible that they hold not just a bunch of stocks, but assets somewhere else not indicated in `StockTicker` table?
+- Fund holdings percentages don't sum up to 100 - possible that they hold not just a bunch of stocks, but assets somewhere else not indicated in `StockTicker` table.
 - The model we built has `DailyClose` nodes for each stock/fund (i.e. each holding). This could result to performance or memory problems if the number of holdings balloons, as each holding would have at least 30 nodes. Say it balloons to 1000. We'd then need to create `1000 * 30 = 30,000` new nodes.
     - A potential fix is to create, per holding, a reduced number of nodes indicating a time period (i.e. a single node for the month? A single node for the quarter?) and each node would have _arrays_ of daily values: highs, lows, closes, volumes, etc. This allows us to _index_ to retrieve a specific daily value or property, as opposed to doing node traversal/search on a large number of items.
 
-A clarification I need to make:
+**Clarifications**
 - I need to clarify the formula for calculating total fund performance. I have indicated my reasoning in Section 2d, but it doesn't fit the answer in the pdf.
