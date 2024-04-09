@@ -158,7 +158,7 @@ ORDER BY c.owner_name
 3b. Return account owner name(s), account type(s), the fund or stock they own and total the value for the last day in the daily trading data. Do not hard code the last day in the query.
 
 ```
-MATCH (c:Customer)-[:HAS]->(ac:Account)-[p:PURCHASED]->(h)-[*0..1]->()-[:DAILY_CLOSE]->(d)
+MATCH (c:Customer)-[]->(ac:Account)-[p:PURCHASED]->(h)-[*0..1]->()-[:DAILY_CLOSE]->(d)
 WITH c.owner_name as customer, ac.account_type as account, TOFLOAT(p.quantity) as numBought, h.ticker as ticker, d order by d.date DESC
 WITH customer, account, numBought, ticker, TOFLOAT(collect(d)[0].close) as lastDayClose
 WITH customer, account, numBought, ticker, SUM(lastDayClose) as totalClose
@@ -172,7 +172,7 @@ I noticed a few things, which I group under concept headers:
 
 **Data Representation**
 - The input tables are quite denormalised, allowing you to inspect high level account performance, and low level/granular stock performance to the day.
-- A graph model is suitable for representing this data, as the data is inherently hierarchical. A customer is the root node in the hierarchy, and information about the customer's financial activities are leaf nodes below the root node. All the more reason for representing the data as a graph! 
+- A graph model is suitable for representing this data, as the data is inherently hierarchical. A customer is the root node in the hierarchy, and information about the customer's financial activities are leaf nodes below the root node. Further, nodes have relationships with each other (i.e. the 'Fund' node connects to the 'Stock' node, as Funds own stocks). The hierarchical and interdependent relationships gives all the more reason to represent this data as a graph!
 - Querying the graph model to get either high level details, like customer account information, or granular details such as daily stock performance is quite easy and intuitive, involving graph traversal. Querying the alternative tabular representation in a relational database would be tedious, and less flexible.
     - For example, 3b above would involve ~6 joins if represented in a relational format, just to get daily close information
     - 3b above can involve writing CTE subqueries to get 'last day' information
