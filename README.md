@@ -4,15 +4,15 @@ This is my attempt to load and query financial data into Neo4J, and answer quest
 
 This financial data represents [customers](data/customers.csv), their [investment accounts](data/accounts.csv), [purchases made](data/account_purchases.csv) by those accounts in terms of [mutual funds](data/funds.csv) and [stocks](data/stock_ticker.csv), and the [daily values of individual stocks](data/daily_close.csv).
 
-We load data and build relationships between them following the graph model below drawn using the [arrows web-app](https://arrows.app) in Section 1 of this README. We then answer questions about this graph model in Section 2 onwards.
+We load data and build relationships between them in Section 1 of this README, following the graph model below (Fig 1) drawn using the [arrows web-app](https://arrows.app). We then answer questions about this graph model in Section 2 onwards.
 
 I used a Neo4J sandbox instance: `neo4j+s://97cceae5d9a9d470b3f1a914a5a3d9c0.bolt.neo4jsandbox.com:443` in the Browser for this exercise.
 
-![Mutual Fund Graph Model](./static/MutualFundGraphModel.png)
+![Mutual Fund Graph Model](./static/MutualFundGraphModel.png "Fig 1: Mutual Fund Graph Model")
 
 Following successful loading and building of the graph model, an example query result fulfilling some of the graph model details above is below.
 
-![Example Real Data](./static/ExampleRealData.png)
+![Example Real Data](./static/ExampleRealData.png "Fig 2: Graph Model Populated With Real World Data)
 
 # Section 1
 
